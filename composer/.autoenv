@@ -1,0 +1,7 @@
+if [[ $autoenv_event == 'enter' ]]; then
+  echo "Loaded $HOME/.composer/vendor/bin to PATH";
+  export PATH="$PATH:$HOME/.composer/vendor/bin"
+else
+  echo "Removed $HOME/.composer/vendor/bin from PATH";
+  export PATH=$(echo ${PATH} | awk -v RS=: -v ORS=: '/composer\/vendor\/bin/ {next} {print}' | sed 's/:*$//')
+fi
